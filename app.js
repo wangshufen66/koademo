@@ -23,18 +23,53 @@ app.use(
   })
 );
 
-router.get('/info', async (ctx) => {
+
+app.use(async (ctx, next) => {
   ctx.body = {
     msg: '请求成功',
     code: 200,
     data: {
-      name: 'wsf',
+      name: 'wsf888',
+      age: 18,
+      sex: '男',
+    },
+  };
+  next();
+});
+
+router.get('/', async (ctx) => {
+  console.log('get--info');
+  console.log('ctx', ctx);
+  ctx.body = {
+    msg: '请求成功',
+    code: 200,
+    data: {
+      name: '首页!!',
+      
+    },
+  };
+});
+
+router.get('/info', async (ctx) => {
+  console.log('get--info');
+  console.log('ctx', ctx);
+  ctx.body = {
+    msg: '请求成功',
+    code: 200,
+    data: {
+      name: 'wayne 哈哈哈',
       age: 18,
       sex: '男',
     },
   };
 });
 
+router.all('*', async ctx => {
+  throw new Error('没有该路由');
+});
+
+
+app.use(router.routes());
 server.listen(port, () => {
   console.log(`port ${port} start successfully`);
 });
